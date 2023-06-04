@@ -2,16 +2,8 @@
 import type { Store } from '@/stores'
 import { useStore } from 'vuex'
 import TopHeadLineCard from '@/components/TopHeadlines/TopHeadLineCard.vue'
-import { onMounted } from 'vue'
-import { ActionTypes } from '@/stores/action'
 
 const store = useStore<Store>()
-
-onMounted(() => {
-  if (store.state.topHeadlines.length === 0) {
-    store.dispatch(ActionTypes.FETCH_TOP_HEADLINES)
-  }
-})
 </script>
 
 <template>
@@ -32,7 +24,7 @@ onMounted(() => {
           :description="article.description"
           :published-at="article.publishedAt"
           :url-to-image="article.urlToImage"
-          :id="index"
+          :id="+index"
         />
       </v-col>
     </v-row>
