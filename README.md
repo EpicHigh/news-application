@@ -35,6 +35,17 @@ cd news-application
 pnpm install
 ```
 
+### Environment Variables
+
+Create a `.env` file in the root directory of the project and add the following environment variables:
+
+```
+VITE_NEWS_API_BASE_URL=https://newsapi.org/v2
+VITE_NEWS_API_KEY=<YOUR_API_KEY>
+```
+
+Replace `<YOUR_API_KEY>` with your actual API key.
+
 4. Start the development server
 ```bash
 pnpm run dev
@@ -70,4 +81,5 @@ pnpm run test:unit
 
 A huge thanks to all our contributors and users for their invaluable feedback and suggestions. Your contribution helps make our application better. Happy coding!
 
+---
 ---
