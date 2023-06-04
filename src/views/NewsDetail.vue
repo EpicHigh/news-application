@@ -2,20 +2,13 @@
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { Store } from '@/stores'
-import { computed, onMounted } from 'vue'
-import { ActionTypes } from '@/stores/action'
+import { computed } from 'vue'
 import getRandomColor from '@/utils'
 import type { Article } from '@/types'
 import { format } from 'date-fns'
 
 const route = useRoute()
 const store = useStore<Store>()
-
-onMounted(() => {
-  if (store.state.topHeadlines.length === 0) {
-    store.dispatch(ActionTypes.FETCH_TOP_HEADLINES)
-  }
-})
 
 const article = computed<Article>(() => {
   return store.state.topHeadlines?.[route.params.id]
