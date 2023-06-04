@@ -20,6 +20,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'import/no-extraneous-dependencies': ['off'],
   },
   settings: {
     ...createAliasSetting([path.join(__dirname, './tsconfig.eslint.json')])
