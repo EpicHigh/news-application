@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useStore } from 'vuex'
 import HelloWorld from '@/components/HelloWorld.vue'
+import { onMounted } from 'vue'
+import type { Store } from '@/stores'
+import { ActionTypes } from '@/stores/action'
+
+const store = useStore<Store>()
+
+onMounted(() => {
+  store.dispatch(ActionTypes.FETCH_TOP_HEADLINES)
+})
 </script>
 
 <template>
