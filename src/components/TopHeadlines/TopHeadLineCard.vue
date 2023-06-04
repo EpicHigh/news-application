@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { format } from 'date-fns'
-import colors from 'vuetify/lib/util/colors'
+import getRandomColor from '@/utils'
 
 const expand = ref(false)
-
-const getRandomColor = () => {
-  const colorKeys = Object.keys(colors).filter((key) => key !== 'shades')
-  const randomKey = colorKeys[Math.floor(Math.random() * colorKeys.length)]
-  return randomKey
-}
 
 const props = defineProps({
   title: {
@@ -30,6 +24,10 @@ const props = defineProps({
   urlToImage: {
     type: String,
     default: ''
+  },
+  id: {
+    type: Number,
+    required: true
   }
 })
 
@@ -43,15 +41,18 @@ const cardColor = computed(() => {
 
 <template>
   <v-card
+    hover
+    link
     :color="cardColor"
-    density="comfortable"
+    :image="props.urlToImage ? props.urlToImage : ''"
+    :to="`/news/${props.id}`"
     @mouseover="expand = true"
     @focusin="expand = true"
     @mouseleave="expand = false"
     @focusout="expand = false"
     class="card text-white"
+    density="comfortable"
     height="350px"
-    :style="props.urlToImage ? `background-image: url('${props.urlToImage}')` : ''"
   >
     <div class="content-wrapper h-100">
       <div class="pt-4">
