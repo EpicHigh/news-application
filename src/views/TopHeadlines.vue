@@ -15,7 +15,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Top Headlines</h1>
+  <h1 class="text-h1">Top Headlines</h1>
   <v-container>
     <v-row>
       <v-col
@@ -24,7 +24,7 @@ onMounted(() => {
         lg="4"
         xl="3"
         xxl="2"
-        v-for="article in store.state.topHeadlines"
+        v-for="(article, index) in store.state.topHeadlines"
         :key="article.url"
       >
         <TopHeadLineCard
@@ -32,6 +32,7 @@ onMounted(() => {
           :description="article.description"
           :published-at="article.publishedAt"
           :url-to-image="article.urlToImage"
+          :id="index"
         />
       </v-col>
     </v-row>

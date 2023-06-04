@@ -6,8 +6,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'TopHeadlines',
       component: TopHeadlines
+    },
+    {
+      path: '/news/:id',
+      name: 'NewsDetail',
+      component: () => import('@/views/NewsDetail.vue')
     }
   ]
 })
