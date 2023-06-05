@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import FilteredMenu from './FilteredMenu.vue'
 
 const tab = ref('top-headlines')
 const drawer = ref(false)
@@ -34,10 +35,7 @@ function goHistory() {
         <v-icon>mdi-magnify</v-icon>
         <v-tooltip activator="parent" location="bottom">Search</v-tooltip>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-filter</v-icon>
-        <v-tooltip activator="parent" location="bottom">Filter by category</v-tooltip>
-      </v-btn>
+      <FilteredMenu />
     </template>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" temporary location="left">
