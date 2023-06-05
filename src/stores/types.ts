@@ -1,10 +1,10 @@
 import type { Article } from '@/types'
 
-export interface TopHeadlinePayload {
+export interface UpdatedTopHeadlinePayload {
   title: string
-  id: number
+  id: string
 }
 
-export interface HistoryPayload extends Article {
+export interface NewsPayload extends Article {
   id: number
 }
