@@ -7,28 +7,27 @@ const store = useStore<Store>()
 </script>
 
 <template>
-  <h1 class="text-h1">Top Headlines</h1>
   <v-container>
+    <h1 class="text-h3 my-6">Top Headlines</h1>
     <v-row>
       <v-col
+        v-for="(article, index) in store.state.topHeadlines"
+        :key="article.url"
         cols="12"
         md="6"
         lg="4"
         xl="3"
         xxl="2"
-        v-for="(article, index) in store.state.topHeadlines"
-        :key="article.url"
       >
         <TopHeadLineCard
+          :id="+index"
           :title="article.title"
           :description="article.description"
           :published-at="article.publishedAt"
           :url-to-image="article.urlToImage"
-          :id="+index"
         />
       </v-col>
     </v-row>
   </v-container>
 </template>
-
 <style scoped></style>
