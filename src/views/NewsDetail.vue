@@ -12,29 +12,21 @@ const route = useRoute()
 const store = useStore<Store>()
 const maxLength = 100
 
-const article = computed<Article>(() => {
-  return store.state.news.get(route.params.id)
-})
+const article: Article = store.getters.getArticleById(route.params.id)
 
 const backgroundColor = computed(() => {
   return getRandomColor()
 })
 
 const truncatedTitle = computed(() => {
-  if (article.value.title.length > maxLength) {
-    return `${article.value.title.substring(0, maxLength)}...`
+  if (article.title.length > maxLength) {
+    return `${article.title.substring(0, maxLength)}...`
   }
-  return article.value.title
-})
-
-const isArticleInHistory = computed<boolean>(() => {
-  return store.state.histories.includes(route.params.id)
+  return article.title
 })
 
 onMounted(() => {
-  if (!isArticleInHistory.value) {
-    store.dispatch(ActionTypes.PUSH_TO_HISTORY, route.params.id)
-  }
+  store.dispatch(ActionTypes.PUSH_TO_HISTORY, route.params.id)
 })
 </script>
 

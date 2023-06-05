@@ -2,19 +2,8 @@
 import type { Store } from '@/stores'
 import { useStore } from 'vuex'
 import TopHeadLineCard from '@/components/TopHeadlines/TopHeadLineCard.vue'
-import { computed } from 'vue'
-import { compareDesc } from 'date-fns'
-import type { State } from '@/stores/state'
 
 const store = useStore<Store>()
-
-const latestNews = computed<State['news']>(() => {
-  return new Map(
-    [...store.state.news.entries()].sort((a, b) =>
-      compareDesc(new Date(a[1].publishedAt), new Date(b[1].publishedAt))
-    )
-  )
-})
 </script>
 
 <template>
@@ -22,7 +11,7 @@ const latestNews = computed<State['news']>(() => {
     <h1 class="text-h3 my-6">Top Headlines</h1>
     <v-row>
       <v-col
-        v-for="[id, article] in latestNews.entries()"
+        v-for="[id, article] in store.getters.latestNews"
         :key="id"
         cols="12"
         md="6"
