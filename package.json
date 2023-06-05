@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mdi/font": "^7.2.96",
     "@vueuse/motion": "^2.0.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
