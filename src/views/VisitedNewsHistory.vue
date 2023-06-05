@@ -10,7 +10,7 @@ const store = useStore<Store>()
   <v-container>
     <h1 class="text-h3 my-6">History</h1>
     <v-alert v-if="store.state.histories.size === 0" type="info">There is no history</v-alert>
-    <v-row v-if="store.state.histories.size !== 0">
+    <v-row v-else>
       <v-col
         v-for="[id] in store.getters.latestVisitedNews"
         :key="id"
