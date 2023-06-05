@@ -28,7 +28,7 @@ const truncatedTitle = computed(() => {
 </script>
 
 <template>
-  <v-sheet v-if="article" class="text-white" :color="backgroundColor" height="100vh">
+  <v-sheet v-if="article" class="text-white" :color="backgroundColor" height="calc(100vh - 56px)">
     <v-container>
       <h1 class="title my-6">{{ truncatedTitle }}</h1>
       <p class="date">{{ format(new Date(article.publishedAt), 'd MMMM yyyy') }}</p>
