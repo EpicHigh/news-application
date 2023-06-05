@@ -9,26 +9,35 @@ import { format } from 'date-fns'
 
 const route = useRoute()
 const store = useStore<Store>()
+const maxLength = 100
 
 const article = computed<Article>(() => {
   return store.state.topHeadlines?.[route.params.id]
 })
+
 const backgroundColor = computed(() => {
   return getRandomColor()
+})
+
+const truncatedTitle = computed(() => {
+  if (article.value.title.length > maxLength) {
+    return `${article.value.title.substring(0, maxLength)}...`
+  }
+  return article.value.title
 })
 </script>
 
 <template>
   <v-sheet v-if="article" class="text-white" :color="backgroundColor" height="100vh">
     <v-container>
-      <h1 class="title my-6">{{ article.title }}</h1>
+      <h1 class="title my-6">{{ truncatedTitle }}</h1>
       <p class="date">{{ format(new Date(article.publishedAt), 'd MMMM yyyy') }}</p>
       <p class="content">{{ article.description }}</p>
       <p class="content">{{ article.content }}</p>
     </v-container>
     <v-img
-      class="image w-100"
       v-if="article.urlToImage"
+      class="image w-100"
       :src="article.urlToImage"
       :alt="article.description || ''"
     />
@@ -43,7 +52,7 @@ const backgroundColor = computed(() => {
   font-size: 1.6rem;
 
   @media (min-width: 768px) {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 }
 
@@ -55,7 +64,7 @@ const backgroundColor = computed(() => {
   text-transform: uppercase;
 
   @media (min-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }
 
