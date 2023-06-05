@@ -13,7 +13,8 @@ export enum ActionTypes {
   PUSH_TO_HISTORY = 'PUSH_TO_HISTORY',
   SET_ERROR = 'SET_ERROR',
   FETCH_SOURCES = 'FETCH_SOURCES',
-  FETCH_TOP_HEADLINES_BY_SOURCE = 'FETCH_TOP_HEADLINES_BY_SOURCE'
+  FETCH_TOP_HEADLINES_BY_SOURCE = 'FETCH_TOP_HEADLINES_BY_SOURCE',
+  SEARCH_NEWS = 'SEARCH_NEWS'
 }
 
 const errorMessage = 'Unknown error'
@@ -73,6 +74,21 @@ export const actions: ActionTree<State, State> = {
         params: {
           sources: payload,
           ...(payload.length === 0 ? { country: 'us' } : {})
+        }
+      })
+      commit(MutationTypes.SET_NEWS, data.articles)
+    } catch (error: unknown) {
+      await dispatch(ActionTypes.SET_ERROR, error)
+    } finally {
+      commit(MutationTypes.SET_LOADING, false)
+    }
+  },
+  async [ActionTypes.SEARCH_NEWS]({ commit, dispatch }: ActionContext<State>, payload: string) {
+    commit(MutationTypes.SET_LOADING, true)
+    try {
+      const { data } = await newsService.get<TopHeadlineResponse>(TOP_HEADLINES, {
+        params: {
+          q: payload
         }
       })
       commit(MutationTypes.SET_NEWS, data.articles)

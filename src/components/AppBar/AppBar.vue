@@ -1,9 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { debounce } from '@/utils'
+import { useStore } from 'vuex'
+import { Store } from '@/stores'
+import { ActionTypes } from '@/stores/action'
 import FilteredMenu from './FilteredMenu.vue'
 
 const tab = ref('top-headlines')
 const drawer = ref(false)
+const search = ref(false)
+const keyword = ref('')
+const store = useStore<Store>()
+
+const debounceKeyword = debounce(() => {
+  store.dispatch(ActionTypes.SEARCH_NEWS, keyword.value)
+}, 500)
 
 function toggleDrawer() {
   drawer.value = !drawer.value
@@ -18,6 +29,10 @@ function goHistory() {
   tab.value = 'history'
   drawer.value = false
 }
+
+function toggleSearch() {
+  search.value = !search.value
+}
 </script>
 
 <template>
@@ -31,11 +46,23 @@ function goHistory() {
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer"></v-app-bar-nav-icon>
     </template>
     <template #append>
-      <v-btn icon>
+      <v-btn icon @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
-        <v-tooltip activator="parent" location="bottom">Search</v-tooltip>
+        <v-tooltip activator="parent" location="bottom">Toggle search</v-tooltip>
       </v-btn>
       <FilteredMenu />
+    </template>
+    <template v-if="search" #extension>
+      <v-text-field
+        v-model="keyword"
+        class="pt-3"
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        single-line
+        autofocus
+        @input="debounceKeyword"
+        @keydown.enter="debounceKeyword"
+      />
     </template>
   </v-app-bar>
   <v-navigation-drawer v-model="drawer" temporary location="left">
