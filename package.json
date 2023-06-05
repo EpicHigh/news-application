@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@mdi/font": "^7.2.96",
-    "@types/qs": "^6.9.7",
     "@vueuse/motion": "^2.0.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
@@ -29,6 +28,7 @@
     "@tsconfig/node18": "^2.0.1",
     "@types/jsdom": "^21.1.1",
     "@types/node": "^18.16.8",
+    "@types/qs": "^6.9.7",
     "@typescript-eslint/parser": "^5.59.8",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vue/eslint-config-airbnb-with-typescript": "^7.0.0",
