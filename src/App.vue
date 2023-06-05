@@ -12,6 +12,9 @@ onMounted(() => {
   if (store.state.news.size === 0) {
     store.dispatch(ActionTypes.FETCH_TOP_HEADLINES)
   }
+  if (store.state.sources.length === 0) {
+    store.dispatch(ActionTypes.FETCH_SOURCES)
+  }
 })
 </script>
 
