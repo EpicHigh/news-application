@@ -6,10 +6,12 @@ export interface State {
   error: string
   isLoading: boolean
   topHeadlines: Article[]
+  histories: Map<number, Article>
 }
 
 export const state: StoreOptions<State>['state'] = () => ({
   error: '',
   isLoading: false,
-  topHeadlines: []
+  topHeadlines: [],
+  histories: new Map()
 })

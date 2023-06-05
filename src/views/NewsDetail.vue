@@ -2,10 +2,11 @@
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { Store } from '@/stores'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import getRandomColor from '@/utils'
 import type { Article } from '@/types'
 import { format } from 'date-fns'
+import { ActionTypes } from '@/stores/action'
 
 const route = useRoute()
 const store = useStore<Store>()
@@ -24,6 +25,16 @@ const truncatedTitle = computed(() => {
     return `${article.value.title.substring(0, maxLength)}...`
   }
   return article.value.title
+})
+
+const isArticleInHistory = computed<boolean>(() => {
+  return store.state.histories.has(route.params.id)
+})
+
+onMounted(() => {
+  if (!isArticleInHistory.value) {
+    store.dispatch(ActionTypes.PUSH_TO_HISTORY, { id: route.params.id, ...article.value })
+  }
 })
 </script>
 
