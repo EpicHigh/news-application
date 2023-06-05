@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { format } from 'date-fns'
-import getRandomColor from '@/utils'
+import { getRandomColor } from '@/utils'
 import NewsToolbar from './NewsToolbar.vue'
 
 interface Props {
   title: string
-  description: string
+  description: string | null
   publishedAt: string
-  urlToImage?: string
-  id: number
+  urlToImage: string | null
+  id: string
 }
 
 const content = ref(false)
@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   description: '',
   publishedAt: '',
   urlToImage: null,
-  id: 0
+  id: ''
 })
 
 const cardColor = computed(() => {

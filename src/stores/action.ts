@@ -3,7 +3,7 @@ import { ActionContext, ActionTree } from 'vuex'
 import { newsService, TOP_HEADLINES } from '@/services'
 import type { TopHeadlineResponse } from '@/types'
 import { AxiosError } from 'axios'
-import type { TopHeadlinePayload, HistoryPayload } from './types'
+import type { UpdatedTopHeadlinePayload } from './types'
 import type { State } from './state'
 import { MutationTypes } from './mutation'
 
@@ -35,11 +35,11 @@ export const actions: ActionTree<State, State> = {
   },
   [ActionTypes.UPDATE_TOP_HEADLINE_TITLE](
     { commit }: ActionContext<State>,
-    payload: TopHeadlinePayload
+    payload: UpdatedTopHeadlinePayload
   ) {
     commit(MutationTypes.UPDATE_TOP_HEADLINE_TITLE, payload)
   },
-  [ActionTypes.PUSH_TO_HISTORY]({ commit }: ActionContext<State>, payload: HistoryPayload) {
+  [ActionTypes.PUSH_TO_HISTORY]({ commit }: ActionContext<State>, payload: string) {
     commit(MutationTypes.PUSH_TO_HISTORY, payload)
   }
 }

@@ -9,7 +9,7 @@ import AppBar from '@/components/AppBar/AppBar.vue'
 const store = useStore<Store>()
 
 onMounted(() => {
-  if (store.state.topHeadlines.length === 0) {
+  if (store.state.news.size === 0) {
     store.dispatch(ActionTypes.FETCH_TOP_HEADLINES)
   }
 })

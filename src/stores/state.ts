@@ -5,13 +5,13 @@ import type { StoreOptions } from 'vuex'
 export interface State {
   error: string
   isLoading: boolean
-  topHeadlines: Article[]
-  histories: Map<number, Article>
+  news: Map<string, Article>
+  histories: string[]
 }
 
 export const state: StoreOptions<State>['state'] = () => ({
   error: '',
   isLoading: false,
-  topHeadlines: [],
-  histories: new Map()
+  news: new Map(),
+  histories: []
 })

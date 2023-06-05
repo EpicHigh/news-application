@@ -7,12 +7,12 @@ import { ActionTypes } from '@/stores/action'
 
 interface Props {
   title: string
-  id: number
+  id: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
-  id: 0
+  id: ''
 })
 
 const router = useRouter()
@@ -48,7 +48,6 @@ function goToDetail() {
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </template>
-    <!-- menu content goes here -->
     <v-btn @click="goToDetail">Read</v-btn>
     <v-btn @click="openDialog">Edit</v-btn>
   </v-menu>

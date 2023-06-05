@@ -1,5 +1,6 @@
 import type { Article } from '@/types'
-import type { HistoryPayload, TopHeadlinePayload } from './types'
+import { hashUrl } from '@/utils'
+import type { UpdatedTopHeadlinePayload } from './types'
 import type { State } from './state'
 
 export enum MutationTypes {
@@ -14,8 +15,8 @@ export type Mutations<S = State> = {
   [MutationTypes.SET_ERROR](state: S, payload: string): void
   [MutationTypes.SET_LOADING](state: S, payload: boolean): void
   [MutationTypes.SET_TOP_HEADLINES](state: S, payload: Article[]): void
-  [MutationTypes.UPDATE_TOP_HEADLINE_TITLE](state: S, payload: TopHeadlinePayload): void
-  [MutationTypes.PUSH_TO_HISTORY](state: S, payload: Article): void
+  [MutationTypes.UPDATE_TOP_HEADLINE_TITLE](state: S, payload: UpdatedTopHeadlinePayload): void
+  [MutationTypes.PUSH_TO_HISTORY](state: S, payload: string): void
 }
 
 export const mutations: Mutations = {
@@ -26,17 +27,20 @@ export const mutations: Mutations = {
     state.isLoading = payload
   },
   [MutationTypes.SET_TOP_HEADLINES](state, payload) {
-    state.topHeadlines = payload
+    payload.forEach(async (article) => {
+      const id = await hashUrl(article.url)
+      if (!state.news.has(id)) {
+        state.news.set(id, article)
+      }
+    })
   },
   [MutationTypes.UPDATE_TOP_HEADLINE_TITLE](state, payload) {
-    const history = state.histories.get(payload.id)
-    state.topHeadlines[payload.id].title = payload.title
-    if (history) {
-      state.histories.set(payload.id, { ...history, title: payload.title })
+    const article = state.news.get(payload.id)
+    if (article) {
+      state.news.set(payload.id, { ...article, title: payload.title })
     }
   },
-  [MutationTypes.PUSH_TO_HISTORY](state, payload: HistoryPayload) {
-    const { id, ...rest } = payload
-    state.histories.set(id, { ...rest })
+  [MutationTypes.PUSH_TO_HISTORY](state, payload) {
+    state.histories.push(payload)
   }
 }

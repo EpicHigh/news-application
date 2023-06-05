@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { Store } from '@/stores'
 import { computed, onMounted } from 'vue'
-import getRandomColor from '@/utils'
+import { getRandomColor } from '@/utils'
 import type { Article } from '@/types'
 import { format } from 'date-fns'
 import { ActionTypes } from '@/stores/action'
@@ -13,7 +13,7 @@ const store = useStore<Store>()
 const maxLength = 100
 
 const article = computed<Article>(() => {
-  return store.state.topHeadlines?.[route.params.id]
+  return store.state.news.get(route.params.id)
 })
 
 const backgroundColor = computed(() => {
@@ -28,12 +28,12 @@ const truncatedTitle = computed(() => {
 })
 
 const isArticleInHistory = computed<boolean>(() => {
-  return store.state.histories.has(route.params.id)
+  return store.state.histories.includes(route.params.id)
 })
 
 onMounted(() => {
   if (!isArticleInHistory.value) {
-    store.dispatch(ActionTypes.PUSH_TO_HISTORY, { id: route.params.id, ...article.value })
+    store.dispatch(ActionTypes.PUSH_TO_HISTORY, route.params.id)
   }
 })
 </script>
