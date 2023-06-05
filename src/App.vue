@@ -22,9 +22,17 @@ onMounted(() => {
   <v-layout>
     <AppBar />
     <v-main>
-      <RouterView />
+      <v-progress-circular v-if="store.state.isLoading" indeterminate size="96" class="spinner" />
+      <RouterView v-else />
     </v-main>
   </v-layout>
 </template>
 
-<style scoped></style>
+<style scoped>
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
