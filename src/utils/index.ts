@@ -19,3 +19,19 @@ export async function hashUrl(url: string) {
   const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
   return hashHex
 }
+
+export function debounce(func: Function, wait: number, immediate?: boolean) {
+  let timeout: NodeJS.Timeout | undefined | number
+  return function () {
+    // @ts-ignore
+    const context = this
+    // eslint-disable-next-line prefer-rest-params
+    const args = arguments
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      timeout = undefined
+      if (!immediate) func.apply(context, args)
+    }, wait)
+    if (immediate && !timeout) func.apply(context, args)
+  }
+}
