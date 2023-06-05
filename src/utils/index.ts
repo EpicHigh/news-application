@@ -16,19 +16,18 @@ export async function hashUrl(url: string) {
   const msgUint8 = new TextEncoder().encode(url)
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8)
   const hashArray = Array.from(new Uint8Array(hashBuffer))
-  const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
-  return hashHex
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
 export function debounce(func: Function, wait: number, immediate?: boolean) {
   let timeout: NodeJS.Timeout | undefined | number
-  return function () {
+  return () => {
     // @ts-ignore
     const context = this
     // eslint-disable-next-line prefer-rest-params
     const args = arguments
     clearTimeout(timeout)
-    timeout = setTimeout(function () {
+    timeout = setTimeout(() => {
       timeout = undefined
       if (!immediate) func.apply(context, args)
     }, wait)
