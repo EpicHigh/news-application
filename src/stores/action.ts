@@ -6,7 +6,13 @@ import type { State } from './state'
 import { MutationTypes } from './mutation'
 
 export enum ActionTypes {
-  FETCH_TOP_HEADLINES = 'FETCH_TOP_HEADLINES'
+  FETCH_TOP_HEADLINES = 'FETCH_TOP_HEADLINES',
+  UPDATE_TOP_HEADLINE_TITLE = 'UPDATE_TOP_HEADLINE_TITLE'
+}
+
+export interface TopHeadlinePayload {
+  title: string
+  id: number
 }
 
 export const actions: ActionTree<State, State> = {
@@ -20,5 +26,11 @@ export const actions: ActionTree<State, State> = {
     } finally {
       commit(MutationTypes.SET_LOADING, false)
     }
+  },
+  [ActionTypes.UPDATE_TOP_HEADLINE_TITLE](
+    { commit }: ActionContext<State>,
+    payload: TopHeadlinePayload
+  ) {
+    commit(MutationTypes.UPDATE_TOP_HEADLINE_TITLE, payload)
   }
 }
