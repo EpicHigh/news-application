@@ -3,17 +3,14 @@ import { ActionContext, ActionTree } from 'vuex'
 import { newsService, TOP_HEADLINES } from '@/services'
 import type { TopHeadlineResponse } from '@/types'
 import { AxiosError } from 'axios'
+import type { TopHeadlinePayload, HistoryPayload } from './types'
 import type { State } from './state'
 import { MutationTypes } from './mutation'
 
 export enum ActionTypes {
   FETCH_TOP_HEADLINES = 'FETCH_TOP_HEADLINES',
-  UPDATE_TOP_HEADLINE_TITLE = 'UPDATE_TOP_HEADLINE_TITLE'
-}
-
-export interface TopHeadlinePayload {
-  title: string
-  id: number
+  UPDATE_TOP_HEADLINE_TITLE = 'UPDATE_TOP_HEADLINE_TITLE',
+  PUSH_TO_HISTORY = 'PUSH_TO_HISTORY'
 }
 
 const errorMessage = 'Unknown error'
@@ -41,5 +38,8 @@ export const actions: ActionTree<State, State> = {
     payload: TopHeadlinePayload
   ) {
     commit(MutationTypes.UPDATE_TOP_HEADLINE_TITLE, payload)
+  },
+  [ActionTypes.PUSH_TO_HISTORY]({ commit }: ActionContext<State>, payload: HistoryPayload) {
+    commit(MutationTypes.PUSH_TO_HISTORY, payload)
   }
 }
