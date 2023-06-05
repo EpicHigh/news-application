@@ -2,33 +2,32 @@
 import { computed, ref } from 'vue'
 import { format } from 'date-fns'
 import getRandomColor from '@/utils'
+import NewsToolbar from './NewsToolbar.vue'
 
-const expand = ref(false)
+interface Props {
+  title: string
+  description: string
+  publishedAt: string
+  urlToImage?: string
+  id: number
+}
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-    default: ''
-  },
-  description: {
-    type: String,
-    required: true,
-    default: ''
-  },
-  publishedAt: {
-    type: String,
-    required: true,
-    default: ''
-  },
-  urlToImage: {
-    type: String,
-    default: ''
-  },
-  id: {
-    type: Number,
-    required: true
-  }
+const content = ref(false)
+
+function expandContent() {
+  content.value = true
+}
+
+function hideContent() {
+  content.value = false
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  title: '',
+  description: '',
+  publishedAt: '',
+  urlToImage: null,
+  id: 0
 })
 
 const cardColor = computed(() => {
@@ -41,31 +40,36 @@ const cardColor = computed(() => {
 
 <template>
   <v-card
-    hover
-    link
     :color="cardColor"
     :image="props.urlToImage ? props.urlToImage : ''"
-    :to="`/news/${props.id}`"
-    @mouseover="expand = true"
-    @focusin="expand = true"
-    @mouseleave="expand = false"
-    @focusout="expand = false"
+    elevation="2"
     class="card text-white"
     density="comfortable"
     height="350px"
+    @mouseover="expandContent"
+    @focusin="expandContent"
+    @mouseleave="hideContent"
+    @focusout="hideContent"
   >
-    <div class="content-wrapper h-100">
-      <div class="pt-4">
-        <v-card-subtitle class="subtitle">
-          {{ format(new Date(props.publishedAt), 'd MMMM yyyy') }}
-        </v-card-subtitle>
-      </div>
+    <div class="d-flex flex-column justify-space-between h-100">
+      <v-row class="pt-4">
+        <v-col cols="6">
+          <v-card-subtitle class="subtitle pt-4">
+            {{ format(new Date(props.publishedAt), 'd MMMM yyyy') }}
+          </v-card-subtitle>
+        </v-col>
+        <v-col class="text-right" cols="6">
+          <div class="pr-4">
+            <NewsToolbar :id="props.id" :title="props.title" />
+          </div>
+        </v-col>
+      </v-row>
       <div class="transparent">
-        <v-card-title class="pt-4 title" :class="{ 'pb-3': !expand }"
+        <v-card-title class="pt-4 title" :class="{ 'pb-3': !content }"
           >{{ props.title }}
         </v-card-title>
         <v-card-text
-          v-if="expand"
+          v-if="content"
           v-motion
           :initial="{
             y: 100
@@ -78,7 +82,6 @@ const cardColor = computed(() => {
           }"
         >
           <p>{{ props.description }}</p>
-          <p class="caption">Read more</p>
         </v-card-text>
       </div>
     </div>
@@ -91,26 +94,14 @@ const cardColor = computed(() => {
   font-weight: bold;
 }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .transparent {
   background-color: rgba(0, 0, 0, 0.5);
-}
-
-.caption {
-  font-size: 0.8rem;
-  text-decoration: underline;
-  font-weight: bold;
 }
 
 .subtitle {
   font-size: 1.2rem;
   font-weight: bold;
-  font-color: white;
+  color: white;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
 
   &.v-card-subtitle {
