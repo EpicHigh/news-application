@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import { key, Store } from '@/stores'
+import { key } from '@/stores'
 import { ActionTypes } from '@/stores/action'
-import { useRouter } from 'vue-router'
+
+interface Props {
+  disabled: boolean
+}
 
 const menu = ref(false)
 const store = useStore(key)
 const sources = ref<string[]>([])
-const router = useRouter()
+const prop = withDefaults(defineProps<Props>(), {
+  disabled: false
+})
 
 function applyFilters() {
   store.dispatch(ActionTypes.FETCH_TOP_HEADLINES_BY_SOURCE, sources.value)
@@ -24,7 +29,7 @@ function resetFilers() {
 <template>
   <v-menu v-model="menu" :close-on-content-click="false" location="end">
     <template #activator="{ props }">
-      <v-btn icon v-bind="props">
+      <v-btn icon :disabled="prop.disabled" v-bind="props">
         <v-icon>mdi-filter</v-icon>
       </v-btn>
     </template>

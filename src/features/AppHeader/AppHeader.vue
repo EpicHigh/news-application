@@ -6,7 +6,7 @@ import { key, Store } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 import NewFilters from './NewFilters.vue'
 
-const tab = ref('top-headlines')
+const tab = ref<number>(0)
 const drawer = ref(false)
 const search = ref(false)
 const keyword = ref('')
@@ -21,12 +21,10 @@ function toggleDrawer() {
 }
 
 function goTopHeadlines() {
-  tab.value = 'top-headlines'
   drawer.value = false
 }
 
 function goHistory() {
-  tab.value = 'history'
   drawer.value = false
 }
 
@@ -54,11 +52,11 @@ function triggerError() {
         <v-icon>mdi-sign-caution</v-icon>
         <v-tooltip activator="parent" location="bottom">Trigger API error</v-tooltip>
       </v-btn>
-      <v-btn icon @click="toggleSearch">
+      <v-btn icon :disabled="tab === 1" @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
         <v-tooltip activator="parent" location="bottom">Toggle search</v-tooltip>
       </v-btn>
-      <NewFilters />
+      <NewFilters :disabled="tab === 1" />
     </template>
     <template v-if="search" #extension>
       <v-text-field
