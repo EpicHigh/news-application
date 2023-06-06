@@ -4,7 +4,7 @@ import { debounce } from '@/utils'
 import { useStore } from 'vuex'
 import { key, Store } from '@/stores'
 import { ActionTypes } from '@/stores/action'
-import FilteredMenu from './FilteredMenu.vue'
+import NewFilters from './NewFilters.vue'
 
 const tab = ref('top-headlines')
 const drawer = ref(false)
@@ -58,7 +58,7 @@ function triggerError() {
         <v-icon>mdi-magnify</v-icon>
         <v-tooltip activator="parent" location="bottom">Toggle search</v-tooltip>
       </v-btn>
-      <FilteredMenu />
+      <NewFilters />
     </template>
     <template v-if="search" #extension>
       <v-text-field

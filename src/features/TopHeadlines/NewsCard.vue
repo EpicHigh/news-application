@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { format } from 'date-fns'
 import { getRandomColor } from '@/utils'
-import NewsToolbar from './NewsToolbar.vue'
+import NewsMenu from './NewsMenu.vue'
 
 interface Props {
   title: string
@@ -60,7 +60,7 @@ const cardColor = computed(() => {
         </v-col>
         <v-col class="text-right" cols="6">
           <div class="pr-4">
-            <NewsToolbar :id="props.id" :title="props.title" />
+            <NewsMenu :id="props.id" :title="props.title" />
           </div>
         </v-col>
       </v-row>
@@ -81,7 +81,7 @@ const cardColor = computed(() => {
             y: -100
           }"
         >
-          <p>{{ props.description }}</p>
+          <p data-test="news-description">{{ props.description }}</p>
         </v-card-text>
       </div>
     </div>

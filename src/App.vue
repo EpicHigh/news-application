@@ -2,11 +2,10 @@
 import { RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { ActionTypes } from '@/stores/action'
-import type { Store } from '@/stores'
 import { useStore } from 'vuex'
-import AppBar from '@/features/AppBar/AppBar.vue'
-import ErrorModal from '@/features/ErrorModal.vue'
+import AppHeader from '@/features/AppHeader/AppHeader.vue'
 import { key } from '@/stores'
+import ErrorDialog from '@/features/ErrorDialog.vue'
 
 const store = useStore(key)
 
@@ -22,8 +21,8 @@ onMounted(() => {
 
 <template>
   <v-layout>
-    <AppBar />
-    <ErrorModal />
+    <AppHeader />
+    <ErrorDialog />
     <v-main>
       <v-progress-circular v-if="store.state.isLoading" indeterminate size="96" class="spinner" />
       <RouterView v-else />

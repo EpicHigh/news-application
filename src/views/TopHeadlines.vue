@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from 'vuex'
-import TopHeadLineCard from '@/features/TopHeadlines/TopHeadLineCard.vue'
+import NewsCard from '@/features/TopHeadlines/NewsCard.vue'
 import { key } from '@/stores'
 
 const store = useStore(key)
@@ -19,7 +19,7 @@ const store = useStore(key)
         xl="3"
         xxl="2"
       >
-        <TopHeadLineCard
+        <NewsCard
           :id="id"
           :title="article.title"
           :description="article.description"

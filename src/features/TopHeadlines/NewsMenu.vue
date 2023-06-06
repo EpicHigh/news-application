@@ -47,7 +47,7 @@ function goToDetail() {
 <template>
   <v-menu v-model="menu">
     <template #activator="{ props }">
-      <v-btn v-bind="props" icon>
+      <v-btn data-test="expand-toolbar-btn" v-bind="props" icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </template>
