@@ -6,8 +6,6 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import { MotionPlugin } from '@vueuse/motion'
 import { mount } from '@vue/test-utils'
 import type { MountingOptions } from '@vue/test-utils'
-// @ts-ignore
-import { render } from '@testing-library/vue'
 import { key } from '@/stores'
 import router from './router'
 
