@@ -4,9 +4,6 @@ import NewsCard from '@/features/TopHeadlines/NewsCard.vue'
 import { key } from '@/stores'
 
 const store = useStore(key)
-
-console.log(store.state)
-console.log(store.getters.latestNews)
 </script>
 
 <template>
