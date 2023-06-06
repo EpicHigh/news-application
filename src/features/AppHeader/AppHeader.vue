@@ -2,15 +2,15 @@
 import { ref } from 'vue'
 import { debounce } from '@/utils'
 import { useStore } from 'vuex'
-import { key, Store } from '@/stores'
+import { key } from '@/stores'
 import { ActionTypes } from '@/stores/action'
-import NewFilters from './NewFilters.vue'
+import NewsFilters from './NewsFilters.vue'
 
 const tab = ref<number>(0)
 const drawer = ref(false)
 const search = ref(false)
 const keyword = ref('')
-const store = useStore<Store>(key)
+const store = useStore(key)
 
 const debounceKeyword = debounce(() => {
   store.dispatch(ActionTypes.SEARCH_NEWS, keyword.value)
@@ -56,7 +56,7 @@ function triggerError() {
         <v-icon>mdi-magnify</v-icon>
         <v-tooltip activator="parent" location="bottom">Toggle search</v-tooltip>
       </v-btn>
-      <NewFilters :disabled="tab === 1" />
+      <NewsFilters :disabled="tab === 1" />
     </template>
     <template v-if="search" #extension>
       <v-text-field
