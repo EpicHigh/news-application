@@ -9,7 +9,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import '@mdi/font/css/materialdesignicons.css'
 import router from './router'
 import App from './App.vue'
-import { store } from './stores'
+import { key, store } from './stores'
 
 const app = createApp(App)
 const vuetify = createVuetify({
@@ -26,7 +26,7 @@ const vuetify = createVuetify({
 
 app.use(router)
 app.use(vuetify)
-app.use(store)
+app.use(store, key)
 app.use(MotionPlugin)
 
 app.mount('#app')
