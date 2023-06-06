@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useStore } from 'vuex'
-import { Store } from '@/stores'
+import { key } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 
-const store = useStore<Store>()
+const store = useStore(key)
 
 const closeDialog = () => {
-  store.commit(ActionTypes.SET_ERROR, '')
+  store.dispatch(ActionTypes.SET_ERROR, '')
 }
 </script>
 

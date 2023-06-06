@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { Store } from '@/stores'
+import { key } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 
 interface Props {
@@ -21,7 +21,7 @@ const menu = ref(false)
 const valid = ref(true)
 const newTitle = ref(properties.title)
 const titleRules = [(v) => v.length <= 255 || 'Title must be less than 255 characters']
-const store = useStore<Store>()
+const store = useStore(key)
 
 function closeDialog() {
   dialog.value = false

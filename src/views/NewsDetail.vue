@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { Store } from '@/stores'
+import { key, Store } from '@/stores'
 import { computed, onMounted } from 'vue'
 import { getRandomColor } from '@/utils'
 import type { Article } from '@/types'
@@ -9,7 +9,7 @@ import { format } from 'date-fns'
 import { ActionTypes } from '@/stores/action'
 
 const route = useRoute()
-const store = useStore<Store>()
+const store = useStore(key)
 const maxLength = 100
 
 const article: Article = store.getters.getArticleById(route.params.id)

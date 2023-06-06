@@ -6,8 +6,9 @@ import type { Store } from '@/stores'
 import { useStore } from 'vuex'
 import AppBar from '@/features/AppBar/AppBar.vue'
 import ErrorModal from '@/features/ErrorModal.vue'
+import { key } from '@/stores'
 
-const store = useStore<Store>()
+const store = useStore(key)
 
 onMounted(() => {
   if (store.state.news.size === 0) {
