@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { debounce } from '@/utils'
 import { useStore } from 'vuex'
-import { Store } from '@/stores'
+import { key, Store } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 import FilteredMenu from './FilteredMenu.vue'
 
@@ -10,7 +10,7 @@ const tab = ref('top-headlines')
 const drawer = ref(false)
 const search = ref(false)
 const keyword = ref('')
-const store = useStore<Store>()
+const store = useStore<Store>(key)
 
 const debounceKeyword = debounce(() => {
   store.dispatch(ActionTypes.SEARCH_NEWS, keyword.value)

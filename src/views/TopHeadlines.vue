@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Store } from '@/stores'
 import { useStore } from 'vuex'
 import TopHeadLineCard from '@/features/TopHeadlines/TopHeadLineCard.vue'
+import { key } from '@/stores'
 
-const store = useStore<Store>()
+const store = useStore(key)
 </script>
 
 <template>

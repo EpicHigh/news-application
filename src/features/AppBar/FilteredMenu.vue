@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-import { Store } from '@/stores'
+import { key, Store } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 
 const menu = ref(false)
-const store = useStore<Store>()
+const store = useStore(key)
 const sources = ref<string[]>([])
 
 function applyFilters() {
