@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Store } from '@/stores'
 import { useStore } from 'vuex'
-import TopHeadLineCard from '@/features/TopHeadlines/TopHeadLineCard.vue'
+import NewsCard from '@/features/TopHeadlines/NewsCard.vue'
 import { key } from '@/stores'
 
 const store = useStore<Store>(key)
@@ -21,7 +21,7 @@ const store = useStore<Store>(key)
         xl="3"
         xxl="2"
       >
-        <TopHeadLineCard :id="id" v-bind="store.getters.getArticleById(id)" />
+        <NewsCard :id="id" v-bind="store.getters.getArticleById(id)" />
       </v-col>
     </v-row>
   </v-container>

@@ -16,8 +16,8 @@ const router = createRouter({
     },
     {
       path: '/history',
-      name: 'VisitedNewsHistory',
-      component: () => import('@/views/VisitedNewsHistory.vue')
+      name: 'NewsHistory',
+      component: () => import('@/views/NewsHistory.vue')
     }
   ]
 })
