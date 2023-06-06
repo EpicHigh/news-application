@@ -1,5 +1,6 @@
 import { expect } from 'vitest'
 import matchers from '@testing-library/jest-dom/matchers'
+import crypto from 'crypto'
 
 expect.extend(matchers)
 
@@ -24,3 +25,9 @@ class ResizeObserver {
 }
 
 global.ResizeObserver = ResizeObserver
+
+Object.defineProperty(global.self, 'crypto', {
+  value: {
+    subtle: crypto.webcrypto.subtle
+  }
+})
