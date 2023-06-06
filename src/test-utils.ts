@@ -4,6 +4,7 @@ import * as directives from 'vuetify/directives'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 // @ts-ignore
 import { MotionPlugin } from '@vueuse/motion'
+import { mount } from '@vue/test-utils'
 import type { MountingOptions } from '@vue/test-utils'
 // @ts-ignore
 import { render } from '@testing-library/vue'
@@ -22,13 +23,14 @@ const vuetify = createVuetify({
   }
 })
 
-function customRender(component: {}, store: Plugin, options?: MountingOptions<any>) {
-  return render(component, {
+function customMount(component: {}, store?: Plugin, options?: MountingOptions<any>) {
+  const mockedStore = store ? [store, key] : []
+  return mount(component, {
     ...options,
     global: {
-      plugins: [[store, key], router, vuetify, MotionPlugin]
+      plugins: [mockedStore, router, vuetify, MotionPlugin]
     }
   })
 }
 
-export default customRender
+export default customMount
