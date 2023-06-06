@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import type { Store } from '@/stores'
 import { useStore } from 'vuex'
 import NewsCard from '@/features/TopHeadlines/NewsCard.vue'
 import { key } from '@/stores'
 
-const store = useStore<Store>(key)
+const store = useStore(key)
 </script>
 
 <template>

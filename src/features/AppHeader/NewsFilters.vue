@@ -5,7 +5,7 @@ import { key } from '@/stores'
 import { ActionTypes } from '@/stores/action'
 
 interface Props {
-  disabled: boolean
+  disabled?: boolean
 }
 
 const menu = ref(false)

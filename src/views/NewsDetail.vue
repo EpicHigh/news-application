@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { key, Store } from '@/stores'
+import { key } from '@/stores'
 import { computed, onMounted } from 'vue'
 import { getRandomColor } from '@/utils'
 import type { Article } from '@/types'
