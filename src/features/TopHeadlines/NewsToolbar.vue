@@ -10,7 +10,7 @@ interface Props {
   id: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const properties = withDefaults(defineProps<Props>(), {
   title: '',
   id: ''
 })
@@ -19,7 +19,7 @@ const router = useRouter()
 const dialog = ref(false)
 const menu = ref(false)
 const valid = ref(true)
-const newTitle = ref(props.title)
+const newTitle = ref(properties.title)
 const titleRules = [(v) => v.length <= 255 || 'Title must be less than 255 characters']
 const store = useStore<Store>()
 
@@ -33,11 +33,14 @@ function openDialog() {
 
 function saveContent() {
   closeDialog()
-  store.dispatch(ActionTypes.UPDATE_TOP_HEADLINE_TITLE, { id: props.id, title: newTitle.value })
+  store.dispatch(ActionTypes.UPDATE_TOP_HEADLINE_TITLE, {
+    id: properties.id,
+    title: newTitle.value
+  })
 }
 
 function goToDetail() {
-  router.push({ name: 'NewsDetail', params: { id: props.id } })
+  router.push({ name: 'NewsDetail', params: { id: properties.id } })
 }
 </script>
 

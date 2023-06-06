@@ -33,6 +33,10 @@ function goHistory() {
 function toggleSearch() {
   search.value = !search.value
 }
+
+function triggerError() {
+  store.dispatch(ActionTypes.FETCH_WITHOUT_API_KEY)
+}
 </script>
 
 <template>
@@ -46,6 +50,10 @@ function toggleSearch() {
       <v-app-bar-nav-icon class="hidden-md-and-up" @click="toggleDrawer"></v-app-bar-nav-icon>
     </template>
     <template #append>
+      <v-btn icon @click="triggerError">
+        <v-icon>mdi-sign-caution</v-icon>
+        <v-tooltip activator="parent" location="bottom">Trigger API error</v-tooltip>
+      </v-btn>
       <v-btn icon @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
         <v-tooltip activator="parent" location="bottom">Toggle search</v-tooltip>
