@@ -13,6 +13,7 @@ export default mergeConfig(
       transformMode: {
         web: [/\.[jt]sx$/]
       },
+      setupFiles: ['./src/setup'],
       deps: {
         inline: ['vuetify']
       }
