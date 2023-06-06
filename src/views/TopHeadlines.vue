@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Store } from '@/stores'
 import { useStore } from 'vuex'
-import TopHeadLineCard from '@/components/TopHeadlines/TopHeadLineCard.vue'
+import TopHeadLineCard from '@/features/TopHeadlines/TopHeadLineCard.vue'
 
 const store = useStore<Store>()
 </script>

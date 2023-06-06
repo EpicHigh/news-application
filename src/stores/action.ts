@@ -14,7 +14,8 @@ export enum ActionTypes {
   SET_ERROR = 'SET_ERROR',
   FETCH_SOURCES = 'FETCH_SOURCES',
   FETCH_TOP_HEADLINES_BY_SOURCE = 'FETCH_TOP_HEADLINES_BY_SOURCE',
-  SEARCH_NEWS = 'SEARCH_NEWS'
+  SEARCH_NEWS = 'SEARCH_NEWS',
+  FETCH_WITHOUT_API_KEY = 'FETCH_WITHOUT_API_KEY'
 }
 
 const errorMessage = 'Unknown error'
@@ -45,10 +46,10 @@ export const actions: ActionTree<State, State> = {
     commit(MutationTypes.PUSH_TO_HISTORY, payload)
   },
   [ActionTypes.SET_ERROR]({ commit }: ActionContext<State>, payload: unknown) {
-    if (payload instanceof Error) {
-      commit(MutationTypes.SET_ERROR, payload.message)
-    } else if (payload instanceof AxiosError) {
+    if (payload instanceof AxiosError) {
       commit(MutationTypes.SET_ERROR, payload.response?.data.message || errorMessage)
+    } else if (payload instanceof Error) {
+      commit(MutationTypes.SET_ERROR, payload.message)
     } else {
       commit(MutationTypes.SET_ERROR, errorMessage)
     }
@@ -96,6 +97,17 @@ export const actions: ActionTree<State, State> = {
       await dispatch(ActionTypes.SET_ERROR, error)
     } finally {
       commit(MutationTypes.SET_LOADING, false)
+    }
+  },
+  async [ActionTypes.FETCH_WITHOUT_API_KEY]({ commit, dispatch }: ActionContext<State>) {
+    try {
+      const { data } = await newsService.get<SourceListResponse>(SOURCE_LIST, {
+        params: {
+          apiKey: ''
+        }
+      })
+    } catch (error: unknown) {
+      await dispatch(ActionTypes.SET_ERROR, error)
     }
   }
 }

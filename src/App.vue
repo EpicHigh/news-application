@@ -4,7 +4,8 @@ import { onMounted } from 'vue'
 import { ActionTypes } from '@/stores/action'
 import type { Store } from '@/stores'
 import { useStore } from 'vuex'
-import AppBar from '@/components/AppBar/AppBar.vue'
+import AppBar from '@/features/AppBar/AppBar.vue'
+import ErrorModal from '@/features/ErrorModal.vue'
 
 const store = useStore<Store>()
 
@@ -21,6 +22,7 @@ onMounted(() => {
 <template>
   <v-layout>
     <AppBar />
+    <ErrorModal />
     <v-main>
       <v-progress-circular v-if="store.state.isLoading" indeterminate size="96" class="spinner" />
       <RouterView v-else />
