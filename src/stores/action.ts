@@ -50,8 +50,10 @@ export const actions: ActionTree<State, State> = {
       commit(MutationTypes.SET_ERROR, payload.response?.data.message || errorMessage)
     } else if (payload instanceof Error) {
       commit(MutationTypes.SET_ERROR, payload.message)
-    } else {
+    } else if (payload) {
       commit(MutationTypes.SET_ERROR, errorMessage)
+    } else {
+      commit(MutationTypes.SET_ERROR, '')
     }
   },
   async [ActionTypes.FETCH_SOURCES]({ commit, dispatch }: ActionContext<State>) {
@@ -107,6 +109,7 @@ export const actions: ActionTree<State, State> = {
         }
       })
     } catch (error: unknown) {
+      console.log(error, 'error')
       await dispatch(ActionTypes.SET_ERROR, error)
     }
   }
